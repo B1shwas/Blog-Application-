@@ -1,6 +1,6 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 
 const Blog = require("./models/blog.model");
@@ -12,11 +12,7 @@ const {
   checkForAuthenticationCookie,
 } = require("./middlewares/authentication.middlewares");
 
-dotenv.config({
-  path: "./.env",
-});
 const app = express();
-const PORT = 3000;
 
 connectDB();
 
@@ -39,6 +35,6 @@ app.get("/", async (req, res) => {
 app.use("/user", userRouter);
 app.use("/blog", blogRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server is listening at PORT:${PORT}`);
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`Server is listening at PORT:${process.env.PORT}`);
 });
