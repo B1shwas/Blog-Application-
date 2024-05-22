@@ -16,9 +16,18 @@ const userSignUp = async (req, res) => {
 
 const userLogin = async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.matchPassword(email, password);
-  console.log("User", user);
-  return res.redirect("/");
+  try {
+    const token = await User.matchPasswordAndGenerateToken(email, password);
+    return res.cookie("token", token).redirect("/");
+  } catch (error) {
+    return res.render("login", {
+      error: "Incorrect password or email",
+    });
+  }
+};
+
+const userLogout = (req, res) => {
+  return res.clearCookie("token").redirect("/");
 };
 
 module.exports = {
@@ -26,4 +35,5 @@ module.exports = {
   getSignUpPage,
   userSignUp,
   userLogin,
+  userLogout,
 };

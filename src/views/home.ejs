@@ -2,9 +2,31 @@
 <html lang="en">
   <head>
     <%- include('./partials/head') %>
-    <title>Blog</title>
+    <title>LessBlog</title>
   </head>
   <body>
-    <%- include('./partials/nav') %> <%- include('./partials/script') %>
+    <%- include('./partials/nav') %>
+    <div class="container row row-cols-4 mt-3">
+      <% blogs.forEach(blog => { %>
+      <div class="col">
+        <div class="card col" style="width: 18rem">
+          <img
+            class="card-img-top"
+            src="<%= blog.coverImageUrl %>"
+            height="190px"
+            style="object-fit: cover"
+          />
+          <div class="card-body">
+            <h5 class="card-title"><%= blog.title %></h5>
+            <a href="/blog/<%= blog._id %>" class="btn btn-primary"
+              >View More</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <% }) %>
+    </div>
+    <%- include('./partials/script') %>
   </body>
 </html>

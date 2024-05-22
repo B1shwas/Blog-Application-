@@ -5,6 +5,7 @@ const {
   getSignUpPage,
   userSignUp,
   userLogin,
+  userLogout,
 } = require("../controllers/user.controllers");
 
 const router = express.Router();
@@ -16,5 +17,7 @@ router.get("/signup", getSignUpPage);
 router.post("/signup", userSignUp);
 
 router.post("/login", userLogin);
+
+router.get("/logout", userLogout);
 
 module.exports = router;
